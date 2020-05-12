@@ -1,0 +1,9 @@
+/build
+*.obj
+*.suo
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+*.vcxproj.user
+*.pro.user
