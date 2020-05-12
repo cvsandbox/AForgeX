@@ -1,0 +1,11 @@
+* libjpeg-turbo - 2.0.4  (2019-12-31)
+https://github.com/libjpeg-turbo/libjpeg-turbo
+
+
+* zlib - 1.2.11           (2017-01-15)
+http://zlib.net/
+
+
+* libpng - 1.6.37         (2019-04-14)
+http://www.libpng.org/pub/png/libpng.html
+(tar.gz version)
