@@ -1,0 +1,26 @@
+LIBRARY   afx_core
+EXPORTS
+   XMAlloc						@1
+   XCAlloc						@2
+   XFree						@3
+   XPalleteAllocate				@4
+   XPaletteFree					@5
+   XPalleteCopy					@6
+   XPalleteClone				@7
+   XImageBitsPerPixel			@8
+   XImageBytesPerStride			@9
+   XImageBytesPerLine			@10
+   XImageIsPixelFormatIndexed	@11
+   XImageCreate					@12
+   XImageAllocate				@13
+   XImageAllocateRaw			@14
+   XImageFree					@15
+   XImageCopyData				@16
+   XImageClone					@17
+   XImageGetSubImage			@18
+   XImagePutImage				@19
+   XImageGetPixelColor			@20
+   XImageSetPixelColor			@21
+   XImageGetPixelColorIndex		@22
+   XImageSetLine				@23
+   XImageFillPlane				@24
