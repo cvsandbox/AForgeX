@@ -39,13 +39,13 @@ xpalette;
 
 // Allocates palette of the specified size
 // Note: the *pPalette must bet either NULL or a valid previously allocated palette (if so it will be re-used if its size matches)
-XErrorCode XPalleteAllocate( int32_t colorsCount, xpalette** pPalette );
+AFX_PUBLIC XErrorCode XPalleteAllocate( int32_t colorsCount, xpalette** pPalette );
 // Frees the specified palette
-void XPaletteFree( xpalette** pPalette );
+AFX_PUBLIC void XPaletteFree( xpalette** pPalette );
 // Copy palette's colors
-XErrorCode XPalleteCopy( const xpalette* src, xpalette* dst );
+AFX_PUBLIC XErrorCode XPalleteCopy( const xpalette* src, xpalette* dst );
 // Copy palette's colors. If destination palette is not allocated or does not match, then it will be (re)allocated.
-XErrorCode XPalleteClone( const xpalette* src, xpalette** dst );
+AFX_PUBLIC XErrorCode XPalleteClone( const xpalette* src, xpalette** dst );
 
 #ifdef __cplusplus
 }

@@ -25,7 +25,7 @@
 #include "ximage.h"
 
 // Returns number of bits required for pixel in certain format
-uint32_t XImageBitsPerPixel( XPixelFormat format )
+AFX_PUBLIC uint32_t XImageBitsPerPixel( XPixelFormat format )
 {
     static int sizes[] = { 0, 8, 24, 32, 16, 48, 64, 1, 1, 2, 4, 8, 32, 64, sizeof( float ) * 8 };
 
@@ -33,19 +33,19 @@ uint32_t XImageBitsPerPixel( XPixelFormat format )
 }
 
 // Returns number of bytes per stride when number of bits per line is known (stride is always 32 bit aligned)
-uint32_t XImageBytesPerStride( uint32_t bitsPerLine )
+AFX_PUBLIC uint32_t XImageBytesPerStride( uint32_t bitsPerLine )
 {
     return ( ( bitsPerLine + 31 ) & ~31 ) >> 3;
 }
 
 // Returns number of bytes per line when number of bits per line is known (line is always 8 bit aligned)
-uint32_t XImageBytesPerLine( uint32_t bitsPerLine )
+AFX_PUBLIC uint32_t XImageBytesPerLine( uint32_t bitsPerLine )
 {
     return ( bitsPerLine + 7 ) >> 3;
 }
 
 // Check if the specified pixel format is indexed (requires palette) or not
-bool XImageIsPixelFormatIndexed( XPixelFormat format )
+AFX_PUBLIC bool XImageIsPixelFormatIndexed( XPixelFormat format )
 {
     return ( ( format == XPixelFormatIndexed1 ) ||
              ( format == XPixelFormatIndexed2 ) ||
@@ -54,7 +54,7 @@ bool XImageIsPixelFormatIndexed( XPixelFormat format )
 }
 
 // Creates an image for existing image buffer - wraps into ximage structure
-XErrorCode XImageCreate( uint8_t* data, int32_t width, int32_t height, int32_t stride, XPixelFormat format, ximage** image )
+AFX_PUBLIC XErrorCode XImageCreate( uint8_t* data, int32_t width, int32_t height, int32_t stride, XPixelFormat format, ximage** image )
 {
     XErrorCode ret = SuccessCode;
 
@@ -188,19 +188,19 @@ static XErrorCode XImageAllocate_Internal( int32_t width, int32_t height, XPixel
 }
 
 // Allocates image structure and memory buffer for the image of specified size/format (memory buffer is initialized with 0)
-XErrorCode XImageAllocate( int32_t width, int32_t height, XPixelFormat format, ximage** image )
+AFX_PUBLIC XErrorCode XImageAllocate( int32_t width, int32_t height, XPixelFormat format, ximage** image )
 {
     return XImageAllocate_Internal( width, height, format, image, true );
 }
 
 // Allocates image structure and memory buffer for the image of specified size/format (memory buffer is not initialized)
-XErrorCode XImageAllocateRaw( int32_t width, int32_t height, XPixelFormat format, ximage** image )
+AFX_PUBLIC XErrorCode XImageAllocateRaw( int32_t width, int32_t height, XPixelFormat format, ximage** image )
 {
     return XImageAllocate_Internal( width, height, format, image, false );
 }
 
 // Frees image structure and image buffer if it was allocated
-void XImageFree( ximage** image )
+AFX_PUBLIC void XImageFree( ximage** image )
 {
     if ( ( image != 0 ) && ( *image != 0 ) )
     {
@@ -215,7 +215,7 @@ void XImageFree( ximage** image )
 }
 
 // Copy content of an image
-XErrorCode XImageCopyData( const ximage* src, ximage* dst )
+AFX_PUBLIC XErrorCode XImageCopyData( const ximage* src, ximage* dst )
 {
     XErrorCode ret = SuccessCode;
 
@@ -309,7 +309,7 @@ XErrorCode XImageCopyData( const ximage* src, ximage* dst )
 }
 
 // Allocate copy of an image
-XErrorCode XImageClone( const ximage* src, ximage** dst )
+AFX_PUBLIC XErrorCode XImageClone( const ximage* src, ximage** dst )
 {
     XErrorCode ret = SuccessCode;
 
@@ -335,7 +335,7 @@ XErrorCode XImageClone( const ximage* src, ximage** dst )
 }
 
 // Get sub image of the specified source image (source image must stay alive because image data is not copied)
-XErrorCode XImageGetSubImage( const ximage* src, ximage** dst, int32_t x, int32_t y, int32_t width, int32_t height )
+AFX_PUBLIC XErrorCode XImageGetSubImage( const ximage* src, ximage** dst, int32_t x, int32_t y, int32_t width, int32_t height )
 {
     XErrorCode ret = SuccessCode;
 
@@ -365,7 +365,7 @@ XErrorCode XImageGetSubImage( const ximage* src, ximage** dst, int32_t x, int32_
 }
 
 // Put source image data into the target at the specified location (images must of same pixel format)
-XErrorCode XImagePutImage( ximage* dst, const ximage* src, int32_t x, int32_t y )
+AFX_PUBLIC XErrorCode XImagePutImage( ximage* dst, const ximage* src, int32_t x, int32_t y )
 {
     XErrorCode ret = SuccessCode;
 
@@ -456,7 +456,7 @@ XErrorCode XImagePutImage( ximage* dst, const ximage* src, int32_t x, int32_t y 
 }
 
 // Get specified pixel's color
-XErrorCode XImageGetPixelColor( const ximage* image, int32_t x, int32_t y, xargb* color )
+AFX_PUBLIC XErrorCode XImageGetPixelColor( const ximage* image, int32_t x, int32_t y, xargb* color )
 {
     XErrorCode ret = SuccessCode;
 
@@ -590,7 +590,7 @@ XErrorCode XImageGetPixelColor( const ximage* image, int32_t x, int32_t y, xargb
 }
 
 // Set specified pixel's color
-XErrorCode XImageSetPixelColor( const ximage* image, int32_t x, int32_t y, xargb color )
+AFX_PUBLIC XErrorCode XImageSetPixelColor( const ximage* image, int32_t x, int32_t y, xargb color )
 {
     XErrorCode ret = SuccessCode;
 
@@ -660,7 +660,7 @@ XErrorCode XImageSetPixelColor( const ximage* image, int32_t x, int32_t y, xargb
 }
 
 // Get specified pixel's color index
-XErrorCode XImageGetPixelColorIndex( const ximage* image, int32_t x, int32_t y, int32_t* colorIndex )
+AFX_PUBLIC XErrorCode XImageGetPixelColorIndex( const ximage* image, int32_t x, int32_t y, int32_t* colorIndex )
 {
     XErrorCode ret = SuccessCode;
 
@@ -733,7 +733,7 @@ XErrorCode XImageGetPixelColorIndex( const ximage* image, int32_t x, int32_t y, 
 }
 
 // Set specified line of the image to values from the given buffer
-XErrorCode XImageSetLine( ximage* dst, int32_t lineIndex, uint8_t* line, uint32_t lineSize )
+AFX_PUBLIC XErrorCode XImageSetLine( ximage* dst, int32_t lineIndex, uint8_t* line, uint32_t lineSize )
 {
     XErrorCode ret = SuccessCode;
 
@@ -758,7 +758,7 @@ XErrorCode XImageSetLine( ximage* dst, int32_t lineIndex, uint8_t* line, uint32_
 }
 
 // Fill the specified color plane of the image with the specified value
-XErrorCode XImageFillPlane( ximage* image, XRGBComponent plane, uint16_t value )
+AFX_PUBLIC XErrorCode XImageFillPlane( ximage* image, XRGBComponent plane, uint16_t value )
 {
     XErrorCode ret = SuccessCode;
 
