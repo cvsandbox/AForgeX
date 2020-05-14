@@ -22,13 +22,14 @@
     <None Include="..\..\afx_core.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\afx_core_internal.h" />
     <ClInclude Include="..\..\xerrors.h" />
     <ClInclude Include="..\..\ximage.h" />
     <ClInclude Include="..\..\xpalette.h" />
     <ClInclude Include="..\..\xtypes.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\xalloc.c" />
+    <ClCompile Include="..\..\afx_core_internal.c" />
     <ClCompile Include="..\..\ximage.c" />
     <ClCompile Include="..\..\xpalette.c" />
   </ItemGroup>

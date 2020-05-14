@@ -21,6 +21,7 @@
 
 #include <stdlib.h>
 #include <memory.h>
+#include "afx_core_internal.h"
 #include "ximage.h"
 
 // Returns number of bits required for pixel in certain format

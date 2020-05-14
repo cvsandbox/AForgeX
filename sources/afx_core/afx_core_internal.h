@@ -20,47 +20,27 @@
 */
 
 #pragma once
-#ifndef AFX_XTYPES_H
-#define AFX_XTYPES_H
+#ifndef AFX_CORE_INTERNAL_H
+#define AFX_CORE_INTERNAL_H
 
 #include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include "xerrors.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Handy macro to bypass MSVC level 4 warning regarding unreferenced parameter
-#define XUNREFERENCED_PARAMETER(param) (void)param;
-    
-// Min/Max macros. NOTE: never use with increments and anything else changing value
-#define XMIN(a, b) (((a)<(b))?(a):(b))
-#define XMAX(a, b) (((a)>(b))?(a):(b))
-// Macro to make sure a value is in certain range
-#define XINRANGE(a, min, max) (((a)<(max))?(((a)>(min))?(a):(min)):(max))
+// ===== Define common memory management functions =====
 
-// Macro to get array's size in bytes
-#define XARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
+// Allocate memory block of required size - malloc() replacement
+void* XMAlloc( size_t size );
+// Allocate memory block of required size and zero initialize it - calloc() replacement
+void* XCAlloc( size_t count, size_t size );
+// Free specified block - free() replacement
+void XFree( void** memblock );
 
-// ===== Definition of ARGB color type =====
-typedef union
-{
-    uint32_t argb;
-    struct
-    {
-        uint8_t b;
-        uint8_t g;
-        uint8_t r;
-        uint8_t a;
-    }
-    components;
-}
-xargb;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // AFX_XTYPES_H
+#endif // AFX_CORE_INTERNAL_H

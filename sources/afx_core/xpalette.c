@@ -20,6 +20,7 @@
 */
 
 #include <memory.h>
+#include "afx_core_internal.h"
 #include "xpalette.h"
 
 // Allocates palette of the specified size

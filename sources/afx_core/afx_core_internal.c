@@ -20,7 +20,7 @@
 */
 
 #include <memory.h>
-#include "xtypes.h"
+#include "afx_core_internal.h"
 
 /*
    Only needed when developing plug-in based system, where main module and
