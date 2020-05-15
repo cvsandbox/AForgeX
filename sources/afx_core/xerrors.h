@@ -40,6 +40,7 @@ static const XErrorCode ErrorTooSmallBuffer                 = 4;  // Amount of p
 static const XErrorCode ErrorArgumentOutOfRange             = 5;  // One of the specified parameters is out of range
 static const XErrorCode ErrorInvalidArgument                = 6;  // One of the specified paramters is not valid
 static const XErrorCode ErrorNotImplemented                 = 7;  // The invoked API is not implemented
+static const XErrorCode ErrorIOFailure                      = 8; // General IO failure
 
 // ===== Error codes related to image processing functions =====
 static const XErrorCode ErrorUnsupportedPixelFormat         = 11001;
