@@ -125,13 +125,13 @@
       <Command>xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\libpng\"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\lib\"
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\include\"
 
-xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\include\"
+xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\include\"
 
 
 del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
@@ -172,14 +172,14 @@ del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
       <Command>xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\libpng\"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\lib\"
 
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\include\"
 
-xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\include\"
+xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\include\"
 
 
 del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
@@ -220,13 +220,13 @@ del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
       <Command>xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\libpng\"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\lib\"
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\include\"
 
-xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\include\"
+xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\include\"
 
 
 del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
@@ -266,13 +266,13 @@ del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
       <Command>xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\libpng\"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\lib\"
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\include\"
 
-xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\include\"
+xcopy /Y "$(ProjectDir)pnglibconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\include\"
 
 
 del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"

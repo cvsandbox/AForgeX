@@ -27,8 +27,8 @@ if "%1"=="clean" (
 
     popd
 
-    set OUT_REL=%OUT_FOLDER%\release
-    set OUT_DBG=%OUT_FOLDER%\debug
+    set OUT_REL=%OUT_FOLDER%\release\externals
+    set OUT_DBG=%OUT_FOLDER%\debug\externals
 
     xcopy /Y "%BUILD_FOLDER%\Release\turbojpeg-static.lib" "%OUT_REL%\lib\"
     xcopy /Y "%BUILD_FOLDER%\Debug\turbojpeg-static.lib" "%OUT_DBG%\lib\"

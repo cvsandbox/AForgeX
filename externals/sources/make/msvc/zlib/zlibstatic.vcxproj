@@ -115,11 +115,11 @@
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\lib\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\include\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -161,11 +161,11 @@ xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\lib\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\include\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -201,19 +201,15 @@ xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
     </Lib>
     <PreBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release\lib\"
-
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\include\"
-
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\include\"
-</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\lib\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\include\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -253,11 +249,11 @@ xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build
       </Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\lib\"
+      <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\lib\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zlib.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\include\"
 
-xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\include\"
+xcopy /Y "$(ProjectDir)..\..\..\zlib\zconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\include\"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
