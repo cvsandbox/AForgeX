@@ -32,6 +32,7 @@ if "%1"=="clean" (
 
     xcopy /Y "%BUILD_FOLDER64%\Release\turbojpeg-static.lib" "%OUT_REL64%\lib\"
     xcopy /Y "%BUILD_FOLDER64%\Debug\turbojpeg-static.lib" "%OUT_DBG64%\lib\"
+    xcopy /Y "%BUILD_FOLDER64%\Debug\turbojpeg-static.pdb" "%OUT_DBG64%\lib\"
 
     xcopy /Y "%BUILD_FOLDER64%\jconfig.h" "%OUT_REL64%\include\"
     xcopy /Y "%SRC_FOLDER%\jpeglib.h" "%OUT_REL64%\include\"

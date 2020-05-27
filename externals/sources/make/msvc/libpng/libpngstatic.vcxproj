@@ -127,6 +127,10 @@
     <PostBuildEvent>
       <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\lib\"
 
+xcopy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\lib\"
+
+
+
 xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\include\"
 
 xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug\externals\include\"
@@ -173,6 +177,10 @@ del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\lib\"
+
+xcopy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\lib\"
+
+
 
 
 xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\debug64\externals\include\"
@@ -222,6 +230,10 @@ del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
     <PostBuildEvent>
       <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\lib\"
 
+xcopy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\lib\"
+
+
+
 xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\include\"
 
 xcopy /Y "$(ProjectDir)..\..\..\libpng\pngconf.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release\externals\include\"
@@ -267,6 +279,10 @@ del "$(ProjectDir)..\..\..\libpng\pnglibconf.h"
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>xcopy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\lib\"
+
+xcopy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\lib\"
+
+
 
 xcopy /Y "$(ProjectDir)..\..\..\libpng\png.h" "$(ProjectDir)..\..\..\..\..\build\msvc\release64\externals\include\"
 
