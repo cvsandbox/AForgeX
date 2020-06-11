@@ -29,6 +29,7 @@
 #include "ximaging_formats.h"
 
 static XErrorCode PerformJpegDecoding( struct jpeg_decompress_struct* cinfo, ximage** image );
+static XErrorCode PerformJpegEncoding( struct jpeg_compress_struct* cinfo, const ximage* image, uint32_t quality );
 
 // Structure which is used for custom error handling from libjpeg
 #ifdef _MSC_VER
@@ -58,7 +59,7 @@ static void my_output_message( j_common_ptr cinfo )
 }
 
 // Decode JPEG image from the specified file
-AFX_PUBLIC XErrorCode XDecodeJpeg( const char* fileName, ximage** image )
+AFX_PUBLIC XErrorCode XDecodeJpeg( ximage** image, const char* fileName )
 {
     struct jpeg_decompress_struct   cinfo;
     struct CustomeErrorManager      jerr;
@@ -133,7 +134,7 @@ AFX_PUBLIC XErrorCode XDecodeJpeg( const char* fileName, ximage** image )
 }
 
 // Decode JPEG image from the specified memory buffer
-AFX_PUBLIC XErrorCode XDecodeJpegFromMemory( const uint8_t* buffer, int bufferLength, ximage** image )
+AFX_PUBLIC XErrorCode XDecodeJpegFromMemory( ximage** image, const uint8_t* buffer, int bufferLength )
 {
     struct jpeg_decompress_struct   cinfo;
     struct CustomeErrorManager      jerr;
@@ -231,12 +232,11 @@ XErrorCode PerformJpegDecoding( struct jpeg_decompress_struct* cinfo, ximage** i
 }
 
 // Encode image into the specified JPEG file (quality: [0, 100])
-AFX_PUBLIC XErrorCode XEncodeJpeg( const char* fileName, const ximage* image, uint32_t quality )
+AFX_PUBLIC XErrorCode XEncodeJpeg( const ximage* image, const char* fileName, uint32_t quality )
 {
     struct jpeg_compress_struct cinfo;
     struct CustomeErrorManager  jerr;
     FILE*                       file = NULL;
-    JSAMPROW                    row_pointer[1];
     XErrorCode                  ret = SuccessCode;
 
     if ( ( fileName == 0 ) || ( image == 0 ) )
@@ -276,7 +276,7 @@ AFX_PUBLIC XErrorCode XEncodeJpeg( const char* fileName, const ximage* image, ui
         }
         else
         {
-            // 1 - allocate and initialize JPEG decompression object
+            // 1 - allocate and initialize JPEG compression object
             cinfo.err               = jpeg_std_error( &jerr.pub );
             jerr.pub.error_exit     = my_error_exit;
             jerr.pub.output_message = my_output_message;
@@ -296,47 +296,122 @@ AFX_PUBLIC XErrorCode XEncodeJpeg( const char* fileName, const ximage* image, ui
             // 2 - specify data destination
             jpeg_stdio_dest( &cinfo, file );
 
-            // 3 - set parameters for compression
-            cinfo.image_width  = image->width;
-            cinfo.image_height = image->height;
-
-            if ( image->format == XPixelFormatRGB24 )
-            {
-                cinfo.input_components = 3;
-                cinfo.in_color_space   = JCS_RGB;
-            }
-            else
-            {
-                cinfo.input_components = 1;
-                cinfo.in_color_space   = JCS_GRAYSCALE;
-            }
-
-            // set default compression parameters
-            jpeg_set_defaults( &cinfo ) ;
-            // set quality
-            quality = XMIN( quality, 100 );
-            quality = XMAX( quality, 0 );
-            jpeg_set_quality( &cinfo, (int) quality, TRUE /* limit to baseline-JPEG values */ );
-
-            // 4 - start compressor
-            jpeg_start_compress( &cinfo, TRUE );
-
-            // 5 - do compression
-            while ( cinfo.next_scanline < cinfo.image_height )
-            {
-                row_pointer[0] = image->data + image->stride * cinfo.next_scanline;
-
-                jpeg_write_scanlines( &cinfo, row_pointer, 1 );
-            }
-
-            // 6 - finish compression
-            jpeg_finish_compress( &cinfo );
+            // 3-6 - perform actual encoding
+            ret = PerformJpegEncoding( &cinfo, image, quality );
 
             // 7 - clean up
             fclose( file );
             jpeg_destroy_compress( &cinfo );
         }
     }
+
+    return ret;
+}
+
+// Encode image into the specified buffer
+AFX_PUBLIC XErrorCode XEncodeJpegToMemory( const ximage* image, uint8_t** buffer, uint32_t* bufferSize, uint32_t quality )
+{
+    struct jpeg_compress_struct cinfo;
+    struct CustomeErrorManager  jerr;
+    FILE*                       file = NULL;
+    XErrorCode                  ret = SuccessCode;
+
+    if ( ( buffer == 0 ) || ( bufferSize == 0 ) || ( image == 0 ) )
+    {
+        ret = ErrorNullParameter;
+    }
+    else if ( ( image->format != XPixelFormatGrayscale8 ) &&
+              ( image->format != XPixelFormatRGB24 ) )
+    {
+        ret = ErrorUnsupportedPixelFormat;
+    }
+    else
+    {
+        unsigned long memBufferSize = *bufferSize;
+        uint8_t*      oldMemBuffer  = *buffer;
+
+        // 1 - allocate and initialize JPEG compression object
+        cinfo.err               = jpeg_std_error( &jerr.pub );
+        jerr.pub.error_exit     = my_error_exit;
+        jerr.pub.output_message = my_output_message;
+
+        // establish the setjmp return context
+        if ( setjmp( jerr.setjmpBuffer ) )
+        {
+            // if we get here, the JPEG code has signaled an error
+            jpeg_destroy_compress( &cinfo );
+            fclose( file );
+
+            return ErrorFailedImageEncoding;
+        }
+
+        jpeg_create_compress( &cinfo );
+
+        // 2 - specify data destination
+        jpeg_mem_dest( &cinfo, buffer, &memBufferSize );
+
+        // 3-6 - perform actual encoding
+        ret = PerformJpegEncoding( &cinfo, image, quality );
+
+        // 7 - clean up
+        jpeg_destroy_compress( &cinfo );
+
+        // let client know the size of the compressed JPEG image
+        *bufferSize = (uint32_t) memBufferSize;
+
+        // if the library allocated new buffer, we need to free the one provided buy user
+        // as comments clearly tell its user responsibility. library does not realloc(),
+        // but uses malloc() if buffer is too small
+        if ( ( oldMemBuffer != *buffer ) && ( oldMemBuffer != 0 ) )
+        {
+            free( oldMemBuffer );
+        }
+    }
+
+    return ret;
+}
+
+// Perform actual encoding of JPEG image
+static XErrorCode PerformJpegEncoding( struct jpeg_compress_struct* cinfo, const ximage* image, uint32_t quality )
+{
+    XErrorCode ret = SuccessCode;
+    JSAMPROW   row_pointer[1];
+
+    // 3 - set parameters for compression
+    cinfo->image_width  = image->width;
+    cinfo->image_height = image->height;
+
+    if ( image->format == XPixelFormatRGB24 )
+    {
+        cinfo->input_components = 3;
+        cinfo->in_color_space   = JCS_RGB;
+    }
+    else
+    {
+        cinfo->input_components = 1;
+        cinfo->in_color_space   = JCS_GRAYSCALE;
+    }
+
+    // set default compression parameters
+    jpeg_set_defaults( cinfo );
+    // set quality
+    quality = XMIN( quality, 100 );
+    quality = XMAX( quality, 0 );
+    jpeg_set_quality( cinfo, (int) quality, TRUE /* limit to baseline-JPEG values */ );
+
+    // 4 - start compressor
+    jpeg_start_compress( cinfo, TRUE );
+
+    // 5 - do compression
+    while ( cinfo->next_scanline < cinfo->image_height )
+    {
+        row_pointer[0] = image->data + image->stride * cinfo->next_scanline;
+
+        jpeg_write_scanlines( cinfo, row_pointer, 1 );
+    }
+
+    // 6 - finish compression
+    jpeg_finish_compress( cinfo );
 
     return ret;
 }

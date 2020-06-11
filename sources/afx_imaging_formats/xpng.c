@@ -118,7 +118,7 @@ static XErrorCode GetPngColorPalette( png_structp ptrPng, png_infop ptrInfo, xpa
 }
 
 // Decode PNG image from the specified file
-AFX_PUBLIC XErrorCode XDecodePng( const char* fileName, ximage** image )
+AFX_PUBLIC XErrorCode XDecodePng( ximage** image, const char* fileName )
 {
     png_structp  ptrPng;
     png_infop    ptrInfo;
@@ -349,7 +349,7 @@ AFX_PUBLIC XErrorCode XDecodePng( const char* fileName, ximage** image )
 }
 
 // Encode image into the specified PNG file
-AFX_PUBLIC XErrorCode XEncodePng( const char* fileName, const ximage* image )
+AFX_PUBLIC XErrorCode XEncodePng( const ximage* image, const char* fileName )
 {
     png_structp ptrPng;
     png_infop   ptrInfo;

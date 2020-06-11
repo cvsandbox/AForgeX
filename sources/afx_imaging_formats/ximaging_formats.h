@@ -34,15 +34,19 @@ extern "C" {
 // then it will be reused in case its size/format matches)
 
 // Decode JPEG image from the specified file or memory buffer
-AFX_PUBLIC XErrorCode XDecodeJpeg( const char* fileName, ximage** image );
-AFX_PUBLIC XErrorCode XDecodeJpegFromMemory( const uint8_t* buffer, int bufferLength, ximage** image );
+AFX_PUBLIC XErrorCode XDecodeJpeg( ximage** image, const char* fileName );
+AFX_PUBLIC XErrorCode XDecodeJpegFromMemory( ximage** image , const uint8_t* buffer, int bufferLength );
 // Encode image into the specified JPEG file (quiality: [0, 100])
-AFX_PUBLIC XErrorCode XEncodeJpeg( const char* fileName, const ximage* image, uint32_t quality );
+AFX_PUBLIC XErrorCode XEncodeJpeg( const ximage* image, const char* fileName, uint32_t quality );
+// Encode image into the specified memory buffer.
+// If the buffer is not allocated (null), then it will be allocated using standard library alloc().
+// If provided buffer is too small, then new will be allocated and the old one will get free().
+AFX_PUBLIC XErrorCode XEncodeJpegToMemory( const ximage* image, uint8_t** buffer, uint32_t* bufferSize, uint32_t quality );
 
 // Decode PNG image from the specified file
-AFX_PUBLIC XErrorCode XDecodePng( const char* fileName, ximage** image );
+AFX_PUBLIC XErrorCode XDecodePng( ximage** image, const char* fileName );
 // Encode image into the specified PNG file
-AFX_PUBLIC XErrorCode XEncodePng( const char* fileName, const ximage* image );
+AFX_PUBLIC XErrorCode XEncodePng( const ximage* image , const char* fileName );
 
 #ifdef __cplusplus
 }
